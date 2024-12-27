@@ -1,5 +1,5 @@
 import numpy as np
-class Logistic_Regression():
+class LogisticRegression():
   def __init__(self):
     self.coef_ = None
     self.intercept = None
