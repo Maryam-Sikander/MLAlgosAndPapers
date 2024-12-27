@@ -6,8 +6,11 @@ class Logistic_Regression():
   def sigmoid(self, z):
     return 1 / (1 + np.exp(-z))
 
-    # Cost Function: -1/m ∑[y_i * log(ŷ) + (1 - y_i) * log(1 - ŷ)]  
   def cost_function(self, X, y, weights):
+    """
+      Computes the cost function:
+      Cost = -1/m * Σ [y * log(ŷ) + (1 - y) * log(1 - ŷ)]
+    """
     z = np.dot(X, weights)
     predict_1 = y * np.log(self.sigmoid(z))
     predict_2 = (1 - y) * np.log(1 - self.sigmoid(z))
