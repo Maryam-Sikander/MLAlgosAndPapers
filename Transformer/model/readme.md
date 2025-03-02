@@ -1,5 +1,5 @@
 # Transformer - Pytorch Implementation
-This is a PyTorch implementation of the Transformer model in the paper Attention is All You Need (Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin, arxiv, 2017).
+This is a PyTorch implementation of the Transformer model in the paper [Attention is All You Need](https://arxiv.org/abs/1706.03762) by Vaswani et al. (2017).
 
 
 <p align="center">
@@ -29,9 +29,8 @@ Suppoese each embedding vector is of 512 dimension and suppose our vocab size is
 
 
 > The paper (Attention Is All You Need) scales embeddings by multiplying them with √d_model (where d_model = embedding_dim).
-$$
-E(x) = Embedding(x) * {\sqrt{d_{model}}}
-$$
+
+$$ E(x) = Embedding(x) * {\sqrt{d_{model}}} $$
 ```python
 class InputEmbeddings(nn.Module):
     def __init__(self, vocab_size, embedding_dim):
@@ -114,8 +113,9 @@ class PositionalEncoding(nn.Module):
     x = x + (self.pe[:, :x.shape[1], :]).required_grad_(False)
     return self.dropout(x)
 ```
+---
 
-## ** Self Attention (Scaled Product Attention)**
+## **Self Attention (Scaled Product Attention)**
 By applying self-attention, the transformer model can capture the dependencies between different words in the input sequence and learn to focus on the most relevant words for each position. This helps in understanding the context and improving the quality of translation or any other sequence-based task.
 
 
@@ -200,24 +200,23 @@ class MultiHeadAttention(nn.Module):
         out = self.fc_out(x)
         return out
 ```
-# **Encoder**
+---
+<h1 style="color:green;font-size: 2em;">Encoder</h1>
+
 ## **Encoder Layer**
 Each Encoder Layer consists of two main sub-layers:
 
 - Multi-Head Self-Attention: Helps each word attend to all others.
-
 - Feed-Forward Network (FFN): Applies two linear transformations with a ReLU activation in between.
 
 🔹 How It Works
 1. Input goes through LayerNorm.
-
 2. Self-attention mechanism is applied.
-
 3. Another LayerNorm, then the output passes through the FFN.
    
-![alt text](image.png)
+
 ```python
-# Transformer encoder layer
+#  encoder layer
 class EncoderLayer(nn.Module):
   def __init__(self, embed_dim, num_heads, dff=2048, dropout=0.1):
     """
@@ -262,10 +261,9 @@ class EncoderLayer(nn.Module):
 <p align="center">
 <img src="https://kikaben.com/transformers-encoder-decoder/images/encoder-layer-norm.png" width="350">
 </p>
-<figcaption>
-Encoder: The encoder is composed of a stack of <b>N = 6</b> identical layers. Each layer has two sub-layers. The first is a multi-head self-attention mechanism, and the second is a simple, positionwise fully connected feed-forward network. We employ a residual connection around each of the two sub-layers, followed by layer normalization. That is, the output of each sub-layer is LayerNorm(x + Sublayer(x)), where Sublayer(x) is the function implemented by the sub-layer itself. To facilitate these residual connections, all sub-layers in the model, as well as the embedding layers, produce outputs of dimension.
-</figcaption>
+    **Encoder:** The encoder is composed of a stack of <b>N = 6</b> identical layers. Each layer has two sub-layers. The first is a multi-head self-attention mechanism, and the second is a simple, positionwise fully connected feed-forward network. We employ a residual connection around each of the two sub-layers, followed by layer normalization. That is, the output of each sub-layer is LayerNorm(x + Sublayer(x)), where Sublayer(x) is the function implemented by the sub-layer itself. To facilitate these residual connections, all sub-layers in the model, as well as the embedding layers, produce outputs of dimension.
 </figure>
+
 ```python
 # Encoder transformer
 class Encoder(nn.Module):
