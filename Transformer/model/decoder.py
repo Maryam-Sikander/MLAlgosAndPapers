@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from model.encoder import EncoderLayer
 from model.decoder import DecoderLayer
-from model.embedding import Norm, InputEmbeddings, PositionalEncoding
+from Transformer.model.embedding_layers import Norm, InputEmbeddings, PositionalEncoding
 from model.self_attention import MultiHeadAttention
 
 class DecoderLayer(nn.Module):

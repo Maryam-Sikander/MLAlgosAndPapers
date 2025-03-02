@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from model.self_attention import MultiHeadAttention
-from model.embedding import Norm, InputEmbeddings, PositionalEncoding
+from Transformer.model.embedding_layers import Norm, InputEmbeddings, PositionalEncoding
 
 class EncoderLayer(nn.Module):
   def __init__(self, embed_dim, num_heads, dff=2048, dropout=0.1):
