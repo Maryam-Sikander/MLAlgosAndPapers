@@ -395,4 +395,3 @@ class Transformer(nn.Module):
         output = self.final_linear(output)
         return output
 ```
-
